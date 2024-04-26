@@ -7,7 +7,7 @@ class InputsConfig:
     2 : Ethereum model
         3 : AppendableBlock model
     """
-    model = 3
+    model = 2
 
     ''' Input configurations for the base model '''
     if model == 0:
@@ -28,7 +28,7 @@ class InputsConfig:
         Tsize = 0.000546  # The average transaction size  in MB
 
         ''' Node Parameters '''
-        Nn = 3  # the total number of nodes in the network
+        Nn = 3  # the total number of nodes in the network (NOT used)
         NODES = []
         from Models.Node import Node
         # here as an example we define three nodes by assigning a unique id for each one
@@ -71,7 +71,7 @@ class InputsConfig:
     if model == 2:
 
         ''' Block Parameters '''
-        Binterval = 12.42  # Average time (in seconds)for creating a block in the blockchain
+        Binterval = 6.21  # Average time (in seconds)for creating a block in the blockchain
         Bsize = 1.0  # The block size in MB
         Blimit = 8000000  # The block gas limit
         Bdelay = 6  # average block propogation delay in seconds, #Ref: https://bitslog.wordpress.com/2016/04/28/uncle-mining-an-ethereum-consensus-protocol-flaw/
@@ -96,75 +96,28 @@ class InputsConfig:
         UIreward = Breward / 32  # Reward for including an uncle
 
         ''' Node Parameters '''
-        Nn = 3  # the total number of nodes in the network
-        NODES = []
+        Nn = 100  # the total number of nodes in the network (NOT used)
+
         from Models.Ethereum.Node import Node
         # here as an example we define three nodes by assigning a unique id for each one + % of hash (computing) power
-        NODES = [Node(id=0, hashPower=50), Node(
-            id=1, hashPower=20), Node(id=2, hashPower=30)]
+        NODES = []
+        auto_gen_nodes = False
+
+        if auto_gen_nodes == True:
+            for i in range(100): # Number of nodes: change to range(X) to populate network with X nodes
+                NODES.append(Node(id=i, hashPower=1))
+        else:
+            NODES.append(Node(id=0, hashPower=20))
+            NODES.append(Node(id=1, hashPower=10))
+            NODES.append(Node(id=2, hashPower=15))
+            NODES.append(Node(id=3, hashPower=5))
+            NODES.append(Node(id=4, hashPower=5))
+            NODES.append(Node(id=5, hashPower=10))
+            NODES.append(Node(id=6, hashPower=15))
+            NODES.append(Node(id=7, hashPower=10))
+            NODES.append(Node(id=8, hashPower=5))
+            NODES.append(Node(id=9, hashPower=5))
 
         ''' Simulation Parameters '''
         simTime = 500  # the simulation length (in seconds)
-        Runs = 2  # Number of simulation runs
-
-        ''' Input configurations for AppendableBlock model '''
-    if model == 3:
-        ''' Transaction Parameters '''
-        hasTrans = True  # True/False to enable/disable transactions in the simulator
-
-        Ttechnique = "Full"
-
-        # The rate of the number of transactions to be created per second
-        Tn = 10
-
-        # The maximum number of transactions that can be added into a transaction list
-        txListSize = 100
-
-        ''' Node Parameters '''
-        # Number of device nodes per gateway in the network
-        Dn = 10
-        # Number of gateway nodes in the network
-        Gn = 2
-        # Total number of nodes in the network
-        Nn = Gn + (Gn*Dn)
-        # A list of all the nodes in the network
-        NODES = []
-        # A list of all the gateway Ids
-        GATEWAYIDS = [chr(x+97) for x in range(Gn)]
-        from Models.AppendableBlock.Node import Node
-
-        # Create all the gateways
-        for i in GATEWAYIDS:
-            otherGatewayIds = GATEWAYIDS.copy()
-            otherGatewayIds.remove(i)
-            # Create gateway node
-            NODES.append(Node(i, "g", otherGatewayIds))
-
-        # Create the device nodes for each gateway
-        deviceNodeId = 1
-        for i in GATEWAYIDS:
-            for j in range(Dn):
-                NODES.append(Node(deviceNodeId, "d", i))
-                deviceNodeId += 1
-
-        ''' Simulation Parameters '''
-        # The average transaction propagation delay in seconds
-        propTxDelay = 0.000690847927
-
-        # The average transaction list propagation delay in seconds
-        propTxListDelay = 0.00864894
-
-        # The average transaction insertion delay in seconds
-        insertTxDelay = 0.000010367235
-
-        # The simulation length (in seconds)
-        simTime = 500
-
-        # Number of simulation runs
-        Runs = 5
-
-        ''' Verification '''
-        # Varify the model implementation at the end of first run
-        VerifyImplemetation = True
-
-        maxTxListSize = 0
+        Runs = 4  # Number of simulation runs

@@ -37,6 +37,7 @@ elif p.model == 0:
 
 
 def main():
+    print(f"Total nodes in the network: {len(p.NODES)}")
     for i in range(p.Runs):
         clock = 0  # set clock to 0 at the start of the simulation
         if p.hasTrans:
@@ -74,17 +75,18 @@ def main():
             Statistics.reset()
         else:
             ########## reset all global variable before the next run #############
-            Statistics.reset()  # reset all variables used to calculate the results
-            Node.resetState()  # reset all the states (blockchains) for all nodes in the network
+            # Statistics.reset()  # reset all variables used to calculate the results
+            # Node.resetState()  # reset all the states (blockchains) for all nodes in the network
             fname = "(Allverify)1day_{0}M_{1}K.xlsx".format(
                 p.Bsize/1000000, p.Tn/1000)
             # print all the simulation results in an excel file
             Statistics.print_to_excel(fname)
+
         fname = "(Allverify)1day_{0}M_{1}K.xlsx".format(
                 p.Bsize/1000000, p.Tn/1000)
         # print all the simulation results in an excel file
         Statistics.print_to_excel(fname)
-        Statistics.reset2()  # reset profit results
+        # Statistics.reset2()  # reset profit results
 
 
 ######################################################## Run Main method #####################################################################

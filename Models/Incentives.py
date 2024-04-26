@@ -10,7 +10,7 @@ class Incentives:
         for bc in c.global_chain:
             for m in p.NODES:
                 if bc.miner == m.id:
-                    m.blocks +=1
+                    m.blocks += 1
                     m.balance += p.Breward # increase the miner balance by the block reward
                     tx_fee= Incentives.transactions_fee(bc)
                     m.balance += tx_fee # add transaction fees to balance

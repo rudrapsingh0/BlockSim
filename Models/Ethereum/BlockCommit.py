@@ -51,6 +51,7 @@ class BlockCommit(BaseBlockCommit):
         currentTime = event.time
         blockPrev = event.block.previous # previous block id
 
+        # print(f"event.node == {event.node}, p.NODES len == {len(p.NODES)}")
 
         node = p.NODES[event.node] # recipint
         lastBlockId= node.last_block().id # the id of last block
@@ -111,7 +112,7 @@ class BlockCommit(BaseBlockCommit):
                 newBlock = miner.blockchain[i]
                 node.blockchain.append(newBlock)
                 if p.hasTrans and p.Ttechnique == "Full": BaseBlockCommit.update_transactionsPool(node,newBlock)
-            i+=1
+            i += 1
 
     # Upon receiving a block, update local unclechain to remove all uncles included in the received block
     def update_unclechain(node):
