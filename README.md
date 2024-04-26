@@ -13,10 +13,12 @@ Before you can use BlockSim  simulator, you need to have **Python version 3 or a
 >pip install pandas
 - numpy 
 >pip install numpy
-- sklearn 
->pip install sklearn
+- scikit-learn 
+>pip install scikit-learn
 - xlsxwriter
 >pip install xlsxwriter
+- openpyxl
+>pip install openpyxl
 
 ## Running the simulator
 
